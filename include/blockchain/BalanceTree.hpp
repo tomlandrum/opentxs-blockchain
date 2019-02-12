@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_BALANCETREE_HPP
 #define OPENTXS_BLOCKCHAIN_BALANCETREE_HPP
 
-#include "opentxs-blockchain/Interface.hpp"
+#include "blockchain/Interface.hpp"
 
 namespace opentxs
 {

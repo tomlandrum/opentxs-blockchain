@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "opentxs-blockchain/Interface.hpp"
+#include "blockchain/Interface.hpp"
 
 namespace opentxs::blockchain::implementation
 {

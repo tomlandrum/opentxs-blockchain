@@ -291,7 +291,7 @@ configure_file("cmake/opentxs-blockchain.pc.in" "opentxs-blockchain.pc" @ONLY)
 # Install
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-        DESTINATION include
+        DESTINATION opentxs
         COMPONENT dev
         FILES_MATCHING PATTERN "*.hpp")
 

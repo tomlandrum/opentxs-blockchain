@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 #define OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 
-#include "opentxs-blockchain/Interface.hpp"
+#include "blockchain/Interface.hpp"
 
 namespace opentxs
 {
