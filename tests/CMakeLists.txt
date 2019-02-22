@@ -18,6 +18,10 @@ include_directories(
   ${GTEST_INCLUDE_DIRS}
 )
 
+if(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-undef")
+endif()
+
 add_executable(${name} ${cxx-sources})
 add_dependencies(unittests-blockchain opentxs-blockchain)
 target_link_libraries(${name} ${GTEST_BOTH_LIBRARIES} pthread)
