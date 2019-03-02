@@ -31,6 +31,7 @@ public:
     virtual bool Connect() = 0;
     virtual bool Disconnect() = 0;
     virtual bool SetChainExtendedCallback(ChainExtendedCallback&& callback) = 0;
+    virtual bool Shutdown() = 0;
 
     virtual ~Network() = default;
 

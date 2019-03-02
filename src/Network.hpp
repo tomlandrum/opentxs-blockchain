@@ -5,46 +5,63 @@
 
 #pragma once
 
-#include "blockchain/Interface.hpp"
+#include "blockchain/Network.hpp"
+
+#include <map>
+#include <mutex>
+#include <string>
 
 namespace opentxs::blockchain::implementation
 {
-class Network : public opentxs::blockchain::Network
+class Network : virtual public opentxs::blockchain::Network
 {
 public:
-    virtual ChainHeight GetConfirmations(
-        const std::string& txid) const override;
-    virtual ChainHeight GetHeight() const override;
-    virtual std::size_t GetPeerCount() const override;
-    virtual Type GetType() const override;
-    virtual std::string SendToAddress(
+    static std::mutex network_map_lock_;
+    static std::map<Type, std::shared_ptr<opentxs::blockchain::Network>>
+        network_map_;
+
+    ChainHeight GetConfirmations(const std::string& txid) const override;
+    ChainHeight GetHeight() const override;
+    std::size_t GetPeerCount() const override;
+    Type GetType() const override { return type_; }
+    std::string SendToAddress(
         const std::string& address,
         const Amount amount,
         const BalanceTree& source) const override;
-    virtual std::string SendToPaymentCode(
+    std::string SendToPaymentCode(
         const std::string& address,
         const Amount amount,
         const PaymentCodeChain& source) const override;
 
-    virtual bool Connect() override;
-    virtual bool Disconnect() override;
-    virtual bool SetChainExtendedCallback(
-        ChainExtendedCallback&& callback) override;
+    bool Connect() override;
+    bool Disconnect() override;
+    bool SetChainExtendedCallback(ChainExtendedCallback&& callback) override;
+    bool Shutdown() override;
 
-    virtual ~Network() = default;
+    Network(
+        const Type type,
+        const BalanceList& addresses,
+        const std::string rpc,
+        const std::string ws);
 
-protected:
-    friend std::unique_ptr<opentxs::blockchain::Network> opentxs::blockchain::
-        Factory(const Type type, const BalanceList& addresses);
-    friend std::unique_ptr<opentxs::blockchain::Network> opentxs::blockchain::
-        Factory(
-            const Type type,
-            const BalanceList& addresses,
-            const std::string rpcUri,
-            const std::string wsUri);
-    Network() = default;
+    ~Network() override = default;
 
 private:
+    const BalanceList& addresses_;
+    const Type type_;
+    const std::string rpc_;
+    const std::string ws_;
+    ChainExtendedCallback chain_callback_;
+
+    static bool shutdown(const Type type);
+
+    void init();
+    void init_account(const blockchain::BalanceTree& account);
+    void init_hdchain(const blockchain::HDChain& subaccount);
+    void init_imported(const blockchain::Imported& subaccount);
+    void init_paymentcode(const blockchain::PaymentCodeChain& subaccount);
+
+    Network() = delete;
     Network(const Network&) = delete;
     Network(Network&&) = delete;
     Network& operator=(const Network&) = delete;

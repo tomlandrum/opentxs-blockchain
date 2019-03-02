@@ -46,21 +46,25 @@ using Amount = std::uint64_t;
 using Nonce = Amount;
 using ChainHeight = std::uint32_t;
 using HDIndex = std::uint32_t;
+
+// Callbacks provided by this library
 using AccountAddedCallback = std::function<void(const std::size_t)>;
 using SubaccountTypeAddedCallback =
     std::function<void(const SubaccountType type, const std::size_t)>;
+using AddressAllocatedCallback = std::function<void(const HDIndex)>;
+
+// Callbacks provided by library customers
+using ChainExtendedCallback = std::function<void(const ChainHeight)>;
 using IndexUpdatedCallback =
     std::function<void(const Subchain type, const std::size_t)>;
-using AddressAllocatedCallback = std::function<void(const HDIndex)>;
-using ChainExtendedCallback = std::function<void(const ChainHeight)>;
+
 using Data = std::vector<std::byte>;
 
-std::unique_ptr<Network> Factory(const Type type, const BalanceList& addresses);
-std::unique_ptr<Network> Factory(
+std::shared_ptr<Network> Factory(
     const Type type,
     const BalanceList& addresses,
-    const std::string rpcUri,
-    const std::string wsUri);
+    const std::string rpcUri = "",
+    const std::string wsUri = "");
 }  // namespace blockchain
 }  // namespace opentxs
 #endif  // OPENTXS_BLOCKCHAIN_INTERFACE_HPP

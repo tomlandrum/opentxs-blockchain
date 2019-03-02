@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_HDCHAIN_HPP
 #define OPENTXS_BLOCKCHAIN_HDCHAIN_HPP
 
-#include "blockchain/Interface.hpp"
+#include "blockchain/Deterministic.hpp"
 
 namespace opentxs
 {
@@ -18,8 +18,8 @@ public:
     virtual HDIndex ExternalCount() const = 0;
     virtual HDIndex InternalCount() const = 0;
 
-    virtual bool SetIndexUpdatedCallback(
-        IndexUpdatedCallback&& callback) const = 0;
+    virtual bool SetAddressAllocatedCallback(
+        AddressAllocatedCallback&& callback) const = 0;
 
     virtual ~HDChain() = default;
 

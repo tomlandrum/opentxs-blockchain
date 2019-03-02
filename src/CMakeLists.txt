@@ -14,10 +14,11 @@ set(MODULE_NAME opentxs-blockchain)
 
 
 if(NOT OT_BUNDLED_OPENTXS_BLOCKCHAIN)
+  find_package(opentxs-proto REQUIRED)
 
   file(GLOB cxx-sources "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
   file(GLOB cxx-headers "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp")
-  
+
   add_library(${MODULE_NAME} SHARED
   ${cxx-sources}
   ${cxx-headers})
@@ -38,6 +39,8 @@ if(NOT OT_BUNDLED_OPENTXS_BLOCKCHAIN)
 
   set_target_properties(${MODULE_NAME} PROPERTIES OUTPUT_NAME ${MODULE_NAME})
   set_target_properties(${MODULE_NAME}_static PROPERTIES OUTPUT_NAME ${MODULE_NAME})
+  target_link_libraries(${MODULE_NAME} PRIVATE ${OPENTXS_PROTO_LIBRARIES})
+  target_include_directories(${MODULE_NAME} PUBLIC ${OPENTXS_PROTO_INCLUDE_DIRS})
 
   install(TARGETS ${MODULE_NAME} ${MODULE_NAME}_static
           DESTINATION ${CMAKE_INSTALL_LIBDIR}

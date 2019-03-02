@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_IMPORTED_HPP
 #define OPENTXS_BLOCKCHAIN_IMPORTED_HPP
 
-#include "blockchain/Interface.hpp"
+#include "blockchain/BalanceNode.hpp"
 
 namespace opentxs
 {

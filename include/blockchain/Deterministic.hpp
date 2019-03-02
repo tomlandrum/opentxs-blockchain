@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 #define OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 
-#include "blockchain/Interface.hpp"
+#include "blockchain/BalanceNode.hpp"
 
 namespace opentxs
 {
@@ -17,6 +17,9 @@ class Deterministic : virtual public BalanceNode
 public:
     virtual HDIndex AllocateNext(const Subchain type) const = 0;
     virtual Data Xpriv() const = 0;
+
+    virtual bool SetIndexUpdatedCallback(
+        IndexUpdatedCallback&& callback) const = 0;
 
     virtual ~Deterministic() = default;
 

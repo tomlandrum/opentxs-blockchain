@@ -8,6 +8,8 @@
 
 #include "blockchain/Interface.hpp"
 
+#include <opentxs-proto/Types.hpp>
+
 namespace opentxs
 {
 namespace blockchain
