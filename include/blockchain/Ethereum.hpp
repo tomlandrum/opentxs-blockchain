@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_ETHEREUM_HPP
 #define OPENTXS_BLOCKCHAIN_ETHEREUM_HPP
 
-#include "blockchain/Imported.hpp"
+#include "Imported.hpp"
 
 namespace opentxs
 {

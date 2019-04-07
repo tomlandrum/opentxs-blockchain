@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_PAYMENTCODECHAIN_HPP
 #define OPENTXS_BLOCKCHAIN_PAYMENTCODECHAIN_HPP
 
-#include "blockchain/Deterministic.hpp"
+#include "Deterministic.hpp"
 
 namespace opentxs
 {

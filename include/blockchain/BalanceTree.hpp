@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_BALANCETREE_HPP
 #define OPENTXS_BLOCKCHAIN_BALANCETREE_HPP
 
-#include "blockchain/Interface.hpp"
+#include "Interface.hpp"
 
 #include <opentxs-proto/Types.hpp>
 
@@ -29,6 +29,7 @@ public:
         const std::size_t index) const = 0;
     virtual const blockchain::Imported& Imported(
         const std::size_t index) const = 0;
+    virtual const std::string& NymID() const = 0;
     virtual const blockchain::PaymentCodeChain& PaymentCodeChain(
         const std::size_t index) const = 0;
 

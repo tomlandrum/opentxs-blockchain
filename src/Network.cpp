@@ -139,7 +139,7 @@ bool Network::SetChainExtendedCallback(ChainExtendedCallback&& callback)
 
     chain_callback_ = callback;
 
-    return true;
+    return bool(chain_callback_);
 }
 
 bool Network::shutdown(const Type type)

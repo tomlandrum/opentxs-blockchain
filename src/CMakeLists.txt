@@ -8,6 +8,7 @@
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_HOME_DIRECTORY}/include
 )
 
 set(MODULE_NAME opentxs-blockchain)
@@ -15,6 +16,10 @@ set(MODULE_NAME opentxs-blockchain)
 
 if(NOT OT_BUNDLED_OPENTXS_BLOCKCHAIN)
   find_package(opentxs-proto REQUIRED)
+
+  set(ENV{PKG_CONFIG_PATH} "/usr/local/lib/pkgconfig/:$ENV{PKG_CONFIG_PATH}")
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(LIB_BITCOIN REQUIRED libbitcoin-system) 
 
   file(GLOB cxx-sources "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
   file(GLOB cxx-headers "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp")
@@ -36,6 +41,8 @@ if(NOT OT_BUNDLED_OPENTXS_BLOCKCHAIN)
     PUBLIC
     PRIVATE
   )
+  
+  target_link_libraries(${MODULE_NAME} PUBLIC ${LIBBITCOIN_LIBRARIES})
 
   set_target_properties(${MODULE_NAME} PROPERTIES OUTPUT_NAME ${MODULE_NAME})
   set_target_properties(${MODULE_NAME}_static PROPERTIES OUTPUT_NAME ${MODULE_NAME})

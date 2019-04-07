@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_INTERFACE_HPP
 #define OPENTXS_BLOCKCHAIN_INTERFACE_HPP
 
-#include "blockchain/Forward.hpp"
+#include "Forward.hpp"
 
 #include <cstddef>
 #include <cstdint>

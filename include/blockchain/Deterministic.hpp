@@ -6,7 +6,7 @@
 #ifndef OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 #define OPENTXS_BLOCKCHAIN_DETERMINISTIC_HPP
 
-#include "blockchain/BalanceNode.hpp"
+#include "BalanceNode.hpp"
 
 namespace opentxs
 {

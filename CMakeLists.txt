@@ -10,7 +10,6 @@ cmake_minimum_required(VERSION 3.12)
 project(opentxs-blockchain)
 include(GNUInstallDirs)
 
-#[[
 if(NOT ANDROID)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM LAST)
 find_package(Git)
@@ -35,7 +34,6 @@ else()
   message(FATAL_ERROR "Git not found.")
 endif()
 endif() # NOT ANDROID
-]]
 
 #-----------------------------------------------------------------------------
 # Options for building
@@ -52,8 +50,8 @@ option(OT_SANITIZE         "Enable sanitize options" ON)
 
 option(BUILD_SHARED_LIBS   "Build shared libraries." ON)
 
-set(PACKAGE_CONTACT        ""                             CACHE <TYPE>  "Package Maintainer")
-set(PACKAGE_VENDOR         "Open Transactions Developers" CACHE <TYPE>  "Package Vendor")
+set(PACKAGE_CONTACT        ""                             CACHE STRING  "Package Maintainer")
+set(PACKAGE_VENDOR         "Open Transactions Developers" CACHE STRING  "Package Vendor")
 
 if(BUILD_VERBOSE)
   set(CMAKE_VERBOSE_MAKEFILE true)
@@ -106,6 +104,9 @@ if(WIN32)
   add_definitions(-D_UNICODE)
 else()
   set(PEDANTIC_CXX_FLAGS "-Wall -Werror -Wextra -pedantic -Wno-missing-braces -Wcast-align -Wctor-dtor-privacy -Wdisabled-optimization -Winit-self -Wmissing-include-dirs -Wswitch-default -Wold-style-cast -Woverloaded-virtual -Wmissing-declarations -Wno-deprecated-declarations -Wno-unused-parameter -Wno-old-style-cast -Wunused-macros -Wundef -Wformat=2 -Wno-format-nonliteral -Wno-disabled-optimization ${GCC_WARN_FLAGS}")
+  if(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+    set(PEDANTIC_CXX_FLAGS "${PEDANTIC_CXX_FLATS} -Wno-unused-lambda-capture")
+  endif()
 endif()
 
 if(ANDROID)
@@ -291,7 +292,7 @@ configure_file("cmake/opentxs-blockchain.pc.in" "opentxs-blockchain.pc" @ONLY)
 # Install
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-        DESTINATION opentxs
+        DESTINATION include/opentxs
         COMPONENT dev
         FILES_MATCHING PATTERN "*.hpp")
 
